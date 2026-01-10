@@ -12,7 +12,7 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 # 4. Define the executable
 #    We tell it to build "HelloWindow" using main.cpp AND glad.c
-add_executable(HelloWindow main.cpp glad.c)
+add_executable(HelloWindow hellowindow.cpp glad.c)
 
 # 5. Link the libraries
 #    Connects GLFW and the Windows graphics API to your program
