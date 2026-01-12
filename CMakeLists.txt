@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
-project(HelloWindow)
+project(Graphics)
 
-# 1. Tell CMake we want to use modern C++
+# 1. Use modern C++
 set(CMAKE_CXX_STANDARD 17)
 
-# 2. Tell CMake where the header files (.h) are
+# 2. Include directories (for headers)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-# 3. Tell CMake where the library files (.a) are
+# 3. Link directories (for .a libraries)
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-# 4. Define the executable
-#    We tell it to build "HelloWindow" using main.cpp AND glad.c
-add_executable(HelloWindow hellowindow.cpp glad.c)
+# TARGET 1: HelloWindow
+# add_executable(HelloWindow hellowindow.cpp glad.c)
+# target_link_libraries(HelloWindow glfw3 opengl32 gdi32 user32)
 
-# 5. Link the libraries
-#    Connects GLFW and the Windows graphics API to your program
-target_link_libraries(HelloWindow glfw3 opengl32 gdi32)
+# TARGET 2: HelloTriangle
+add_executable(HelloTriangle helloTriangle.cpp glad.c)
+target_link_libraries(HelloTriangle glfw3 opengl32 gdi32 user32)

@@ -4,10 +4,7 @@
 
 using namespace std;
 
-// --- 1. Callback Function (Must be defined OUTSIDE main) ---
-// This function runs every time you resize the window.
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
+void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
@@ -21,18 +18,16 @@ int main()
 
     // --- 3. Create the Window Object ---
     GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
+    if (window == NULL){
+        cout << "Failed to create GLFW window" << endl;
         glfwTerminate();
         return -1;
     }
     glfwMakeContextCurrent(window);
 
     // --- 4. Initialize GLAD (Load OpenGL Function Pointers) ---
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+        cout << "Failed to initialize GLAD" << endl;
         return -1;
     }
 
@@ -41,8 +36,7 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // --- 6. The Render Loop ---
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)){
         // A. Input
         // If user presses ESC, close the window
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -61,5 +55,4 @@ int main()
 
     // --- 7. Clean up resources ---
     glfwTerminate();
-    return 0;
 }
