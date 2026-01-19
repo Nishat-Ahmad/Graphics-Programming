@@ -8,7 +8,8 @@ cmake_install.cmake
 cmake_uninstall.cmake
 cmakeCache.txt
 Makefile
-build/
 *.exe
 *.o
 .vscode/
+CMakeFiles
+*.cmake
