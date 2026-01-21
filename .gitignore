@@ -13,3 +13,5 @@ Makefile
 .vscode/
 CMakeFiles
 *.cmake
+inlcude/glm
+glm
