@@ -18,6 +18,9 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 # add_executable(HelloTriangle helloTriangle.cpp glad.c)
 # target_link_libraries(HelloTriangle glfw3 opengl32 gdi32 user32)
 
-# Create Executable
-add_executable(HelloShader helloShader.cpp glad.c)
-target_link_libraries(HelloShader glfw3 opengl32 gdi32 user32)
+# TARGET 3: HelloShader
+# add_executable(HelloShader helloShader.cpp glad.c)
+# target_link_libraries(HelloShader glfw3 opengl32 gdi32 user32)
+
+add_executable(HelloTexture helloTexture.cpp glad.c stb_image.cpp)
+target_link_libraries(HelloTexture glfw3 opengl32 gdi32 user32)
