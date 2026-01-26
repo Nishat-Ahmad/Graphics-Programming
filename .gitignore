@@ -8,3 +8,10 @@ cmake_install.cmake
 cmake_uninstall.cmake
 cmakeCache.txt
 Makefile
+*.exe
+*.o
+.vscode/
+CMakeFiles
+*.cmake
+inlcude/glm
+glm
