@@ -28,5 +28,8 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 # add_executable(HelloTransform helloTransform.cpp glad.c stb_image.cpp)
 # target_link_libraries(HelloTransform glfw3 opengl32 gdi32 user32)
 
-add_executable(HelloCoordinate helloCoordinate.cpp glad.c stb_image.cpp)
-target_link_libraries(HelloCoordinate glfw3 opengl32 gdi32 user32)
+# add_executable(HelloCoordinate helloCoordinate.cpp glad.c stb_image.cpp)
+# target_link_libraries(HelloCoordinate glfw3 opengl32 gdi32 user32)
+
+add_executable(HelloCamera helloCamera.cpp glad.c stb_image.cpp)
+target_link_libraries(HelloCamera glfw3 opengl32 gdi32 user32)
