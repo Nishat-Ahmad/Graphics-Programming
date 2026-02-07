@@ -3,7 +3,9 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "sprite_renderer.h" 
+#include <vector>
+
+#include "game_level.h"
 
 enum GameState {
     GAME_ACTIVE,
@@ -14,9 +16,11 @@ enum GameState {
 class Game
 {
 public:
-    GameState    State;
-    bool         Keys[1024];
-    unsigned int Width, Height;
+    GameState               State;
+    bool                    Keys[1024];
+    unsigned int            Width, Height;
+    std::vector<GameLevel>  Levels;
+    unsigned int            Level;
 
     Game(unsigned int width, unsigned int height);
     ~Game();
@@ -25,7 +29,6 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
-    SpriteRenderer *Renderer;
 };
 
 #endif

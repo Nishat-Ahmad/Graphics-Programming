@@ -24,6 +24,8 @@ set(GAME_SOURCES
     Game/shader.cpp
     Game/texture.cpp
     Game/sprite_renderer.cpp
+    Game/game_object.cpp   # <--- ADD
+    Game/game_level.cpp
 )
 
 # Check if stb_image.cpp is in Game or Root. 
