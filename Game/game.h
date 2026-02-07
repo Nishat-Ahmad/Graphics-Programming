@@ -4,9 +4,22 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <tuple> // <--- Add this
 
 #include "game_level.h"
 #include "ball_object.h"
+
+// Represents the four possible (collision) directions
+enum Direction {
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT
+};
+
+// Defines a Collision typedef that represents collision data
+// <collision?, what direction?, difference vector center - closest point>
+typedef std::tuple<bool, Direction, glm::vec2> Collision; 
 
 enum GameState {
     GAME_ACTIVE,
@@ -30,9 +43,11 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
-    
-    // NEW: Function to check all collisions
     void DoCollisions();
+    
+    // Reset functions
+    void ResetLevel();
+    void ResetPlayer();
 };
 
 #endif
