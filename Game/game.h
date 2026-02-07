@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "game_level.h"
-#include "ball_object.h" // <--- Add this
+#include "ball_object.h"
 
 enum GameState {
     GAME_ACTIVE,
@@ -23,12 +23,6 @@ public:
     std::vector<GameLevel>  Levels;
     unsigned int            Level;
     
-    // Add Ball Object here
-    // --------------------
-    // We already have Renderer and Player, now we add Ball
-    // Note: I am keeping Renderer and Player public for simplicity as per tutorial style
-    // --------------------
-    
     Game(unsigned int width, unsigned int height);
     ~Game();
 
@@ -36,6 +30,9 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
+    
+    // NEW: Function to check all collisions
+    void DoCollisions();
 };
 
 #endif

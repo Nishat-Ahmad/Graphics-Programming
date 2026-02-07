@@ -7,19 +7,49 @@
 // Game-related State data
 SpriteRenderer *Renderer;
 GameObject      *Player;
-BallObject      *Ball; // <--- Add this
+BallObject      *Ball;
+
+// -----------------------------------------------------------
+// COLLISION DETECTION FUNCTION (AABB - Circle)
+// -----------------------------------------------------------
+bool CheckCollision(BallObject &one, GameObject &two)
+{
+    // 1. Get center point of the circle (Ball)
+    glm::vec2 center(one.Position + one.Radius);
+    
+    // 2. Calculate AABB info (center, half-extents) for the Box (Brick)
+    glm::vec2 aabb_half_extents(two.Size.x / 2.0f, two.Size.y / 2.0f);
+    glm::vec2 aabb_center(two.Position.x + aabb_half_extents.x, two.Position.y + aabb_half_extents.y);
+    
+    // 3. Get difference vector between both centers
+    glm::vec2 difference = center - aabb_center;
+    
+    // 4. Clamp the difference vector to the AABB half-extents
+    //    (This finds the point on the AABB closest to the circle)
+    glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+    
+    // 5. Add clamped value to AABB_center so we get the value of the closest point on the box
+    glm::vec2 closest = aabb_center + clamped;
+    
+    // 6. Get vector between center circle and closest point AABB
+    difference = closest - center;
+    
+    // 7. If length < radius, we have a collision
+    return glm::length(difference) < one.Radius;
+}
+// -----------------------------------------------------------
+
 
 Game::Game(unsigned int width, unsigned int height) 
     : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
 { 
-
 }
 
 Game::~Game()
 {
     delete Renderer;
     delete Player;
-    delete Ball; // <--- Add this
+    delete Ball;
 }
 
 void Game::Init()
@@ -59,15 +89,17 @@ void Game::Init()
     Player = new GameObject(playerPos, glm::vec2(100.0f, 20.0f), ResourceManager::GetTexture("paddle"));
 
     // configure ball
-    // ---------------------------------------------------
     glm::vec2 ballPos = playerPos + glm::vec2(100.0f / 2.0f - 12.5f, -12.5f * 2.0f);
     Ball = new BallObject(ballPos, 12.5f, glm::vec2(100.0f, -350.0f), ResourceManager::GetTexture("face"));
 }
 
 void Game::Update(float dt)
 {
-    // Update ball position
+    // update objects
     Ball->Move(dt, this->Width);
+    
+    // check for collisions
+    this->DoCollisions();
 }
 
 void Game::ProcessInput(float dt)
@@ -81,7 +113,6 @@ void Game::ProcessInput(float dt)
             if (Player->Position.x >= 0.0f)
             {
                 Player->Position.x -= velocity;
-                // Stick ball to paddle
                 if (Ball->Stuck)
                     Ball->Position.x -= velocity;
             }
@@ -91,12 +122,10 @@ void Game::ProcessInput(float dt)
             if (Player->Position.x <= this->Width - Player->Size.x)
             {
                 Player->Position.x += velocity;
-                // Stick ball to paddle
                 if (Ball->Stuck)
                     Ball->Position.x += velocity;
             }
         }
-        // Launch ball
         if (this->Keys[GLFW_KEY_SPACE])
             Ball->Stuck = false;
     }
@@ -106,15 +135,27 @@ void Game::Render()
 {
     if(this->State == GAME_ACTIVE)
     {
-        // draw background
         Renderer->DrawSprite(ResourceManager::GetTexture("background"), 
             glm::vec2(0.0f, 0.0f), glm::vec2(this->Width, this->Height), 0.0f
         );
-        // draw level
         this->Levels[this->Level].Draw(*Renderer);
-        // draw player
         Player->Draw(*Renderer);
-        // draw ball
         Ball->Draw(*Renderer);
+    }
+}
+
+// NEW: Function Implementation
+void Game::DoCollisions()
+{
+    for (GameObject &box : this->Levels[this->Level].Bricks)
+    {
+        if (!box.Destroyed)
+        {
+            if (CheckCollision(*Ball, box))
+            {
+                if (!box.IsSolid)
+                    box.Destroyed = true;
+            }
+        }
     }
 }
