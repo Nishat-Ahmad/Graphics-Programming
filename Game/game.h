@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "game_level.h"
+#include "ball_object.h" // <--- Add this
 
 enum GameState {
     GAME_ACTIVE,
@@ -21,7 +22,13 @@ public:
     unsigned int            Width, Height;
     std::vector<GameLevel>  Levels;
     unsigned int            Level;
-
+    
+    // Add Ball Object here
+    // --------------------
+    // We already have Renderer and Player, now we add Ball
+    // Note: I am keeping Renderer and Player public for simplicity as per tutorial style
+    // --------------------
+    
     Game(unsigned int width, unsigned int height);
     ~Game();
 

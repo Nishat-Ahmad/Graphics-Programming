@@ -24,7 +24,8 @@ set(GAME_SOURCES
     Game/shader.cpp
     Game/texture.cpp
     Game/sprite_renderer.cpp
-    Game/game_object.cpp   # <--- ADD
+    Game/game_object.cpp
+    Game/ball_object.cpp
     Game/game_level.cpp
 )
 
